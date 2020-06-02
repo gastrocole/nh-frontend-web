@@ -10,9 +10,9 @@ import {
 } from '../types/reducerTypes'
 
 const initialState = {
-    token = localStorage.getItem('token'),
-    isAuthenticated = null, 
-    loading = true,
+    token: localStorage.getItem('token'),
+    isAuthenticated: null, 
+    loading: true,
     user: null
 }
 
