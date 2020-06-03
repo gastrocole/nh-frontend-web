@@ -50,6 +50,10 @@ If you need to update `npm`, you can do it using `npm`! Cool right? After runnin
 
     $ npm install
 
+## Config
+
+Go to package.json and replace replace `<PORT>` with the port that the api development server is running on.
+
 ## Running the project
 
 #### Run Development Server
