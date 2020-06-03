@@ -1,12 +1,27 @@
 import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+
 import './App.css';
 import { Container, Button } from 'semantic-ui-react';
 
+
 const App = () => {
   return (
+    <Provider store={store}>
+    <Router>
     <Fragment className='App'>
-      <Container></Container>
+      {/*insert nav bar here*/}
+      <Container>
+        <Switch>
+          <Route exact path='/' component={LandingPage}/>
+          <Route exact path='/home' component={HomePage}/>
+          </Switch>
+      </Container>
     </Fragment>
+    </Router>
+    </Provider>
   );
 };
 
