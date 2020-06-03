@@ -2,10 +2,13 @@ import React, { Fragment } from 'react';
 import { Container, Button } from 'semantic-ui-react';
 import {Provider} from 'react-redux';
 
-import Login from './components/Login'
+import LoginModal from './components/login/LoginModal'
+
 import store from './store';
 
+
 import './App.css';
+
 
 
 const App = () => {
@@ -13,7 +16,7 @@ const App = () => {
     <Provider store={store}>
       <Fragment>
         <Container>
-          <Login />
+          <LoginModal />
         </Container>
       </Fragment>
      </Provider>
