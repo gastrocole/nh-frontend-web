@@ -20,7 +20,7 @@ export const loadUser = () => async (dispatch) => {
     }
 
     try {
-        const res = axios.get('./api/auth');
+        const res = await axios.get('/auth');
         dispatch({
             type: USER_LOADED,
             payload: res.data
@@ -44,7 +44,7 @@ export const registerUser = (registerObject) => async (dispatch) => {
     const body = JSON.stringify(registerObject);
 
     try {
-        const res = await axios.post('/api/users', body, config);
+        const res = await axios.post('/users', body, config);
         localStorage.setItem('token', res.data.token); 
         dispatch({
             type: REGISTER_SUCCESS,
@@ -72,10 +72,10 @@ export const login = ({email, password}) => async (dispatch) => {
         }
     };
 
-    const body = JSON.stringify({email, password})
+    const body = JSON.stringify({email, password});
 
     try {
-        const res = await axios.post('/api/auth', body, config);
+        const res = await axios.post('/auth', body, config);
         localStorage.setItem('token', res.data.token)
         dispatch({
             type: LOGIN_SUCCESS,
@@ -83,8 +83,8 @@ export const login = ({email, password}) => async (dispatch) => {
         });
         dispatch(loadUser());
 
-    } catch (err) {
-        console.log('error');
+    } catch (error) {
+        console.log(error);
         // TO DO: set alert
         // TO DO: catch for both axios and non-axios errors
         localStorage.removeItem('token');

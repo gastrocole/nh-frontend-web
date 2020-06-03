@@ -13,9 +13,6 @@ const App = () => {
     <Provider store={store}>
       <Fragment>
         <Container>
-          <p>
-            Haidee
-          </p>
           <Login />
         </Container>
       </Fragment>

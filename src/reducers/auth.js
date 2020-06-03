@@ -34,6 +34,7 @@ export default function (state = initialState, action) {
                 isAuthenticated: true,
                 loading: false
             };
+            console.log('success')
         case AUTH_ERROR:
         case REGISTER_FAIL:
         case LOGIN_FAIL:
@@ -45,6 +46,7 @@ export default function (state = initialState, action) {
                 isAuthenticated: false, 
                 loading: false,
             };
+            console.log('fail')
         default:
             return state;
     }
