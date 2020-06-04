@@ -1,6 +1,6 @@
 # NH Web Frontend
 
-This is the repository for Neighbourhoods' web frontend.
+This is the repository for Neighbourhood's web frontend.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

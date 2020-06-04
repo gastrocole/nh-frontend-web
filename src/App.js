@@ -3,8 +3,17 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 
-import './App.css';
 import { Container, Button } from 'semantic-ui-react';
+
+import LoginModal from './components/login/LoginModal'
+import LandingPage from './components/landing/LandingPage'
+import HomePage from './components/home/HomePage'
+
+import store from './store';
+
+import './App.css';
+
+
 
 
 const App = () => {
@@ -13,6 +22,7 @@ const App = () => {
     <Router>
     <Fragment className='App'>
       {/*insert nav bar here*/}
+      <LoginModal />
       <Container>
         <Switch>
           <Route exact path='/' component={LandingPage}/>
