@@ -25,11 +25,9 @@ const Login = ({ login, isAuthenticated }) => {
 
   //redirect if logged in
   if (isAuthenticated) {
-    console.log("redirect");
-    //redirect to their neighbourhood landing page
+    return <Redirect to='/HomePage' />
   }
 
-  //need to update all classNames and styling
   return (
     <Form onSubmit={(e) => onSubmit(e)}>
       <Form.Input
@@ -68,7 +66,6 @@ Login.propTypes = {
   isAuthenticated: PropTypes.bool,
 };
 
-//why does this have curly brackets after arrow??
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
