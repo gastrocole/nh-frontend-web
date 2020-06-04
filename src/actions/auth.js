@@ -10,7 +10,6 @@ import {
   CLEAR_PROFILE,
   LOGOUT,
 } from '../types/reducerTypes';
-//TO DO: create reducer consts in ..types/reducerTypes
 
 // load user
 export const loadUser = () => async (dispatch) => {
