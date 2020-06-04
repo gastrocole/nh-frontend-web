@@ -1,14 +1,28 @@
-import React from 'react'
-import { Header } from 'semantic-ui-react'
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const LandingPage = () => {
-    return (
-        <div>
-            <Header as='h1'>
-                Landing Page
-            </Header>
-        </div>
-    )
-}
+import LandingHeader from './LandingHeader';
 
-export default LandingPage
+const LandingPage = ({ isAuthenticated }) => {
+  if (isAuthenticated) {
+    return <Redirect to='/home' />;
+  }
+
+  return (
+    <Fragment>
+      <LandingHeader />
+    </Fragment>
+  );
+};
+
+LandingPage.propTypes = {
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(LandingPage);

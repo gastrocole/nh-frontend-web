@@ -1,14 +1,13 @@
-import React from 'react'
-import { Header } from 'semantic-ui-react'
+import React, { Fragment } from 'react';
+
+import HomeHeader from './HomeHeader';
 
 const HomePage = () => {
-    return (
-        <div>
-            <Header as='h1'>
-                Home Page
-            </Header>
-        </div>
-    )
-}
+  return (
+    <Fragment>
+      <HomeHeader />
+    </Fragment>
+  );
+};
 
-export default HomePage
+export default HomePage;
