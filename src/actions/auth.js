@@ -1,5 +1,13 @@
+// Imported components by library: 
 import axios from 'axios';
+
+// Actions:
+import { addLoginErrorMessage } from './loginMessages';
+
+// Utility functions:
 import setAuthToken from '../utils/auth';
+
+// Types: 
 import {
   USER_LOADED,
   AUTH_ERROR,
@@ -11,9 +19,7 @@ import {
   LOGOUT,
 } from '../types/reducerTypes';
 
-import { addLoginErrorMessage } from './loginMessages';
-
-// load user
+// Load user
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -32,7 +38,7 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-// register user
+// Register user
 export const registerUser = (registerObject) => async (dispatch) => {
   const config = {
     headers: {
@@ -61,7 +67,7 @@ export const registerUser = (registerObject) => async (dispatch) => {
   }
 };
 
-// login user
+// Login user
 export const loginUser = ({ email, password }) => async (dispatch) => {
   const config = {
     headers: {
@@ -90,7 +96,7 @@ export const loginUser = ({ email, password }) => async (dispatch) => {
   }
 };
 
-// clear profile & log out
+// Clear profile & log out
 export const logoutUser = () => async (dispatch) => {
   localStorage.removeItem('token');
   dispatch({

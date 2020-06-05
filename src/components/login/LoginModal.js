@@ -1,7 +1,11 @@
-import LoginForm from './LoginForm';
-
+// Standard imports:
 import React from 'react';
+
+// Imported components by library:
 import { Button, Modal } from 'semantic-ui-react';
+
+// Custom components:
+import LoginForm from './LoginForm';
 
 const LoginModal = () => {
   return (
@@ -12,7 +16,7 @@ const LoginModal = () => {
       centered={false}
       closeIcon
     >
-      <Modal.Header align='middle'>Log In To Your Account</Modal.Header>
+      <Modal.Header align='middle'>Welcome Back To Neighbourhood</Modal.Header>
       <Modal.Content>
         <LoginForm />
       </Modal.Content>

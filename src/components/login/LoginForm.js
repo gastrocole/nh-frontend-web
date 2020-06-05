@@ -1,12 +1,18 @@
-import React, { Fragment, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+// Standard imports:
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loginUser } from '../../actions/auth';
-import { Button, Form, Grid, Message } from 'semantic-ui-react';
+
+// Imported components by library:
+import { Button, Form, Grid } from 'semantic-ui-react';
+
+// Custom components:
 import LoginMessages from './LoginMessages';
 
-const Login = ({ loginUser, isAuthenticated }) => {
+// Actions:
+import { loginUser } from '../../actions/auth';
+
+const Login = ({ loginUser }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -14,21 +20,14 @@ const Login = ({ loginUser, isAuthenticated }) => {
 
   const { email, password } = formData;
 
-  //does this set data for all [name: value] pairs of target??
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async (e) => {
-    console.log('submitted');
     e.preventDefault();
     loginUser(formData);
   };
-
-  //redirect if logged in
-  if (isAuthenticated) {
-    return <Redirect to='/Home' />;
-  }
 
   return (
     <Form error onSubmit={(e) => onSubmit(e)}>
@@ -76,11 +75,6 @@ const Login = ({ loginUser, isAuthenticated }) => {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(null, { loginUser })(Login);
