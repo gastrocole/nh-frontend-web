@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import LandingHeader from './LandingHeader';
+import LandingHeader from '../components/landing/LandingHeader';
 
-const LandingPage = ({ isAuthenticated }) => {
+const Landing = ({ isAuthenticated }) => {
   if (isAuthenticated) {
     return <Redirect to='/home' />;
   }
@@ -17,7 +17,7 @@ const LandingPage = ({ isAuthenticated }) => {
   );
 };
 
-LandingPage.propTypes = {
+Landing.propTypes = {
   isAuthenticated: PropTypes.bool,
 };
 
@@ -25,4 +25,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(LandingPage);
+export default connect(mapStateToProps)(Landing);

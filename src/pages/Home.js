@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 
-import HomeHeader from './HomeHeader';
+import HomeHeader from '../components/home/HomeHeader';
 
-const HomePage = () => {
+const Home = () => {
   return (
     <Fragment>
       <HomeHeader />
@@ -10,4 +10,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
