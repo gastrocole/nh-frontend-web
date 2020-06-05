@@ -11,6 +11,8 @@ import {
   LOGOUT,
 } from '../types/reducerTypes';
 
+import { addLoginErrorMessage } from './loginMessages';
+
 // load user
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
@@ -60,7 +62,7 @@ export const registerUser = (registerObject) => async (dispatch) => {
 };
 
 // login user
-export const login = ({ email, password }) => async (dispatch) => {
+export const loginUser = ({ email, password }) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -78,8 +80,8 @@ export const login = ({ email, password }) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (error) {
-    console.log(error);
-    // TO DO: set alert
+    const errors = error.response.data.errors;
+    errors.forEach((error) => dispatch(addLoginErrorMessage(error.msg)))
     // TO DO: catch for both axios and non-axios errors
     localStorage.removeItem('token');
     dispatch({

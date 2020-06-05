@@ -1,14 +1,15 @@
-import React, { Fragment, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { login } from "../../actions/auth";
-import { Button, Form, Grid} from "semantic-ui-react";
+import React, { Fragment, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loginUser } from '../../actions/auth';
+import { Button, Form, Grid, Message } from 'semantic-ui-react';
+import LoginMessages from './LoginMessages';
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ loginUser, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const { email, password } = formData;
@@ -19,8 +20,9 @@ const Login = ({ login, isAuthenticated }) => {
   };
 
   const onSubmit = async (e) => {
+    console.log('submitted');
     e.preventDefault();
-    login(formData);
+    loginUser(formData);
   };
 
   //redirect if logged in
@@ -29,9 +31,9 @@ const Login = ({ login, isAuthenticated }) => {
   }
 
   return (
-    <Form onSubmit={(e) => onSubmit(e)}>
-      <Grid>
-        <Grid.Row>
+    <Form error onSubmit={(e) => onSubmit(e)}>
+      <Grid centered>
+        <Grid.Column width={16}>
           <Form.Input
             icon='user'
             iconPosition='left'
@@ -41,10 +43,9 @@ const Login = ({ login, isAuthenticated }) => {
             value={email}
             onChange={(e) => onChange(e)}
             required
-            className = 'sixteen wide column'
           />
-        </Grid.Row>
-        <Grid.Row>
+        </Grid.Column>
+        <Grid.Column width={16}>
           <Form.Input
             icon='lock'
             iconPosition='left'
@@ -56,23 +57,25 @@ const Login = ({ login, isAuthenticated }) => {
             minLength='6'
             onChange={(e) => onChange(e)}
             required
-            className = 'sixteen wide column'
           />
-        </Grid.Row>
-        <Grid.Row centered>
+        </Grid.Column>
+        <Grid.Column width={16}>
+          <LoginMessages />
+        </Grid.Column>
+        <Grid.Column width={16} textAlign='center'>
           <Button.Group>
             <Button content='Register' />
             <Button.Or />
             <Button positive type='submit' value='Login' content='Log In' />
           </Button.Group>
-        </Grid.Row>
+        </Grid.Column>
       </Grid>
     </Form>
   );
 };
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired,
+  loginUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 
@@ -80,4 +83,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { loginUser })(Login);
