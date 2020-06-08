@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
@@ -12,7 +12,11 @@ import {
   Dropdown,
 } from 'semantic-ui-react';
 
-import { TabletPlus, MobileOnly } from '../responsive/display-conditions';
+import {
+  TabletPlus,
+  MobileOnly,
+  isMobile,
+} from '../responsive/display-conditions';
 import Logo from '../branding/Logo';
 import BrandHeader from '../branding/BrandHeader';
 import LoginModal from '../login/LoginModal';
@@ -39,8 +43,12 @@ const Navigation = ({ auth: { isAuthenticated, loading }, children }) => {
 
   const [state, setState] = useState(initialState);
 
+  useEffect(() => {
+    setState({ mobile: isMobile(), ...state });
+  }, []);
+
   const handleUpdate = (e, { calculations }) => {
-    setState({ calculations });
+    setState({ calculations, mobile: isMobile() });
   };
 
   const menuLogo = (
@@ -75,7 +83,9 @@ const Navigation = ({ auth: { isAuthenticated, loading }, children }) => {
       />
       <Menu.Item>
         <Button.Group>
-          <Button primary>Dashboard</Button>
+          <Button as={NavLink} exact to='/dashboard' primary>
+            Dashboard
+          </Button>
           <LogoutButton />
         </Button.Group>
       </Menu.Item>
@@ -87,7 +97,9 @@ const Navigation = ({ auth: { isAuthenticated, loading }, children }) => {
       <Menu.Item as={NavLink} exact to='/businesses' content='My Business' />
       <Menu.Item>
         <Button.Group>
-          <Button primary>Dashboard</Button>
+          <Button as={NavLink} exact to='/dashboard' primary>
+            Dashboard
+          </Button>
           <LogoutButton />
         </Button.Group>
       </Menu.Item>
@@ -95,14 +107,7 @@ const Navigation = ({ auth: { isAuthenticated, loading }, children }) => {
   );
 
   const mobileMenu = (
-    <Dropdown
-      direction='right'
-      closeOnBlur
-      closeOnChange
-      item
-      button
-      icon='sidebar'
-    >
+    <Dropdown item icon='sidebar'>
       <Dropdown.Menu>
         {!isAuthenticated ? guestItems : memberItems}
       </Dropdown.Menu>
@@ -114,8 +119,8 @@ const Navigation = ({ auth: { isAuthenticated, loading }, children }) => {
       <Menu
         as='Nav'
         fixed='top'
-        primary={state.calculations.topPassed}
-        secondary={state.calculations.topVisible}
+        primary={state.mobile ? state.mobile : state.calculations.topPassed}
+        secondary={state.mobile ? false : state.calculations.topVisible}
         size='massive'
         borderless
       >
