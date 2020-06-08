@@ -14,9 +14,6 @@ import Partners from './pages/Partners';
 import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 
-// Styles
-import './App.css';
-
 // Redux Store
 import store from './store';
 
@@ -39,17 +36,15 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Fragment className='App'>
-          <ResponsiveContainer>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route exact path='/membership' component={Membership} />
-              <Route exact path='/partners' component={Partners} />
-              <AuthRoute exact path='/dashboard' component={Dashboard} />
-              <Route component={NotFound} />
-            </Switch>
-          </ResponsiveContainer>
-        </Fragment>
+        <ResponsiveContainer>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/membership' component={Membership} />
+            <Route exact path='/partners' component={Partners} />
+            <AuthRoute exact path='/dashboard' component={Dashboard} />
+            <Route component={NotFound} />
+          </Switch>
+        </ResponsiveContainer>
       </Router>
     </Provider>
   );
