@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -53,7 +53,6 @@ const NavigationBar = ({ auth: { isAuthenticated, loading }, logoutUser }) => {
             fontFamily: 'Open Sans',
             fontStyle: 'black',
             fontWeight: 'bold',
-            fontWeight: 'normal',
           }}
         >
           NEIGHBOURHOOD
