@@ -65,7 +65,6 @@ const Navigation = ({ auth: { isAuthenticated, loading }, children }) => {
 
   const guestItems = (
     <Fragment>
-      <Menu.Item />
       <Menu.Item as={NavLink} exact to='/membership' content='Membership' />
       <Menu.Item as={NavLink} exact to='/partners' content='Partners' />
       <Menu.Item>
@@ -76,7 +75,6 @@ const Navigation = ({ auth: { isAuthenticated, loading }, children }) => {
 
   const memberItems = (
     <Fragment>
-      <Menu.Item />
       <Menu.Item
         as={NavLink}
         exact
@@ -96,7 +94,6 @@ const Navigation = ({ auth: { isAuthenticated, loading }, children }) => {
 
   const partnerItems = (
     <Fragment>
-      <Menu.Item />
       <Menu.Item as={NavLink} exact to='/businesses' content='My Business' />
       <Menu.Item>
         <Button.Group>
@@ -134,6 +131,7 @@ const Navigation = ({ auth: { isAuthenticated, loading }, children }) => {
             {!loading && (
               <Fragment>
                 <TabletPlus>
+                  <Menu.Item />
                   {!isAuthenticated ? guestItems : memberItems}
                 </TabletPlus>
                 <MobileOnly>{mobileMenu}</MobileOnly>
