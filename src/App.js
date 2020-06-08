@@ -1,10 +1,10 @@
 // Standard imports: React, Router & Redux
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 // Custom components
-import ResponsiveContainer from './components/layout/ResponsiveContainer';
+import Navigation from './components/navigation/Navigation';
 import AuthRoute from './components/routing/AuthRoute';
 
 // Pages
@@ -36,7 +36,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <ResponsiveContainer>
+        <Navigation>
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/membership' component={Membership} />
@@ -44,7 +44,7 @@ const App = () => {
             <AuthRoute exact path='/dashboard' component={Dashboard} />
             <Route component={NotFound} />
           </Switch>
-        </ResponsiveContainer>
+        </Navigation>
       </Router>
     </Provider>
   );
