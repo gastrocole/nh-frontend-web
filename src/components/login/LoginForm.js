@@ -1,14 +1,14 @@
-import React, { Fragment, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { login } from "../../actions/auth";
-import { Button, Form, Grid} from "semantic-ui-react";
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
+import { Button, Form, Grid } from 'semantic-ui-react';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const { email, password } = formData;
@@ -41,7 +41,7 @@ const Login = ({ login, isAuthenticated }) => {
             value={email}
             onChange={(e) => onChange(e)}
             required
-            className = 'sixteen wide column'
+            className='sixteen wide column'
           />
         </Grid.Row>
         <Grid.Row>
@@ -56,7 +56,7 @@ const Login = ({ login, isAuthenticated }) => {
             minLength='6'
             onChange={(e) => onChange(e)}
             required
-            className = 'sixteen wide column'
+            className='sixteen wide column'
           />
         </Grid.Row>
         <Grid.Row centered>
