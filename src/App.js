@@ -6,9 +6,11 @@ import { Provider } from 'react-redux';
 // Custom components
 import Navigation from './components/navigation/Navigation';
 import AuthRoute from './components/routing/AuthRoute';
+import GuestRoute from './components/routing/GuestRoute';
 
 // Pages
 import Home from './pages/Home';
+import Register from './pages/Register';
 import Membership from './pages/Membership';
 import Partners from './pages/Partners';
 import Dashboard from './pages/Dashboard';
@@ -39,8 +41,13 @@ const App = () => {
         <Navigation>
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/membership' component={Membership} />
-            <Route exact path='/partners' component={Partners} />
+            <GuestRoute
+              exact
+              path='/register'
+              component={Register}
+            ></GuestRoute>
+            <GuestRoute exact path='/membership' component={Membership} />
+            <GuestRoute exact path='/partners' component={Partners} />
             <AuthRoute exact path='/dashboard' component={Dashboard} />
             <Route component={NotFound} />
           </Switch>
