@@ -16,6 +16,7 @@ import {
   TabletPlus,
   MobileOnly,
   isMobile,
+  isTablet,
 } from '../responsive/display-conditions';
 import Logo from '../branding/Logo';
 import BrandHeader from '../branding/BrandHeader';
@@ -44,11 +45,11 @@ const Navigation = ({ auth: { isAuthenticated, loading }, children }) => {
   const [state, setState] = useState(initialState);
 
   useEffect(() => {
-    setState({ mobile: isMobile(), ...state });
+    setState({ mobile: isMobile(), tablet: isTablet(), ...state });
   }, []);
 
   const handleUpdate = (e, { calculations }) => {
-    setState({ calculations, mobile: isMobile() });
+    setState({ calculations, mobile: isMobile(), tablet: isTablet() });
   };
 
   const menuLogo = (
@@ -121,8 +122,9 @@ const Navigation = ({ auth: { isAuthenticated, loading }, children }) => {
         fixed='top'
         primary={state.mobile ? state.mobile : state.calculations.topPassed}
         secondary={state.mobile ? false : state.calculations.topVisible}
-        size='massive'
+        size={state.mobile ? 'large' : state.tablet ? 'large' : 'massive'}
         borderless
+        compact
       >
         <Container>
           {menuLogo}
