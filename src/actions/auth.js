@@ -1,5 +1,13 @@
+// Imported components by library:
 import axios from 'axios';
+
+// Actions:
+import { addLoginErrorMessage } from './loginMessages';
+
+// Utility functions:
 import setAuthToken from '../utils/auth';
+
+// Types:
 import {
   USER_LOADED,
   AUTH_ERROR,
@@ -11,7 +19,7 @@ import {
   LOGOUT,
 } from '../types/reducerTypes';
 
-// load user
+// Load user
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -30,7 +38,7 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-// register user
+// Register user
 export const registerUser = (registerObject) => async (dispatch) => {
   const config = {
     headers: {
@@ -59,8 +67,8 @@ export const registerUser = (registerObject) => async (dispatch) => {
   }
 };
 
-// login user
-export const login = ({ email, password }) => async (dispatch) => {
+// Login user
+export const loginUser = ({ email, password }) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -78,9 +86,14 @@ export const login = ({ email, password }) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (error) {
-    console.log(error);
-    // TO DO: set alert
-    // TO DO: catch for both axios and non-axios errors
+    if (error.response.data.errors) {
+      const errors = error.response.data.errors;
+      errors.forEach((error) => dispatch(addLoginErrorMessage(error.msg)));
+    } else if (error.response.data) {
+      console.log(error.response.data)
+    } else {
+      console.log(error)
+    }
     localStorage.removeItem('token');
     dispatch({
       type: LOGIN_FAIL,
@@ -88,7 +101,7 @@ export const login = ({ email, password }) => async (dispatch) => {
   }
 };
 
-// clear profile & log out
+// Clear profile & log out
 export const logoutUser = () => async (dispatch) => {
   localStorage.removeItem('token');
   dispatch({
