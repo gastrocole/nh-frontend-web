@@ -1,4 +1,4 @@
-// Imported components by library: 
+// Imported components by library:
 import axios from 'axios';
 
 // Actions:
@@ -7,7 +7,7 @@ import { addLoginErrorMessage } from './loginMessages';
 // Utility functions:
 import setAuthToken from '../utils/auth';
 
-// Types: 
+// Types:
 import {
   USER_LOADED,
   AUTH_ERROR,
@@ -86,9 +86,14 @@ export const loginUser = ({ email, password }) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (error) {
-    const errors = error.response.data.errors;
-    errors.forEach((error) => dispatch(addLoginErrorMessage(error.msg)))
-    // TO DO: catch for both axios and non-axios errors
+    if (error.response.data.errors) {
+      const errors = error.response.data.errors;
+      errors.forEach((error) => dispatch(addLoginErrorMessage(error.msg)));
+    } else if (error.response.data) {
+      console.log(error.response.data)
+    } else {
+      console.log(error)
+    }
     localStorage.removeItem('token');
     dispatch({
       type: LOGIN_FAIL,
