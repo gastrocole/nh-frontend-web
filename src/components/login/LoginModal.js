@@ -1,24 +1,24 @@
-import LoginForm from "./LoginForm";
+// Standard imports:
+import React from 'react';
 
-import React from "react";
-import { Button, Modal, Grid } from "semantic-ui-react";
+// Imported components by library:
+import { Button, Modal } from 'semantic-ui-react';
+
+// Custom components:
+import LoginForm from './LoginForm';
 
 const LoginModal = () => {
   return (
     <Modal
       size='mini'
       trigger={<Button>Log In</Button>}
-      closeIcon
-      dimmer='inverted'
+      dimmer='blurring'
       centered={false}
+      closeIcon
     >
-      <Modal.Header align='middle'>Log In To Your Account</Modal.Header>
+      <Modal.Header align='middle'>Welcome Back To Neighbourhood</Modal.Header>
       <Modal.Content>
-        <Grid columns={1} padded>
-          <Grid.Column sixteen wide column>
-            <LoginForm />
-          </Grid.Column>
-        </Grid>
+        <LoginForm />
       </Modal.Content>
     </Modal>
   );

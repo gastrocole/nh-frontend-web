@@ -1,11 +1,18 @@
+// Standard imports:
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../../actions/auth';
+
+// Imported components by library:
 import { Button, Form, Grid } from 'semantic-ui-react';
 
-const Login = ({ login, isAuthenticated }) => {
+// Custom components:
+import LoginMessages from './LoginMessages';
+
+// Actions:
+import { loginUser } from '../../actions/auth';
+
+const Login = ({ loginUser }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -13,25 +20,19 @@ const Login = ({ login, isAuthenticated }) => {
 
   const { email, password } = formData;
 
-  //does this set data for all [name: value] pairs of target??
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    login(formData);
+    loginUser(formData);
   };
 
-  //redirect if logged in
-  if (isAuthenticated) {
-    return <Redirect to='/Home' />;
-  }
-
   return (
-    <Form onSubmit={(e) => onSubmit(e)}>
-      <Grid>
-        <Grid.Row>
+    <Form error onSubmit={(e) => onSubmit(e)}>
+      <Grid centered>
+        <Grid.Column width={16}>
           <Form.Input
             icon='user'
             iconPosition='left'
@@ -41,10 +42,9 @@ const Login = ({ login, isAuthenticated }) => {
             value={email}
             onChange={(e) => onChange(e)}
             required
-            className='sixteen wide column'
           />
-        </Grid.Row>
-        <Grid.Row>
+        </Grid.Column>
+        <Grid.Column width={16}>
           <Form.Input
             icon='lock'
             iconPosition='left'
@@ -56,28 +56,25 @@ const Login = ({ login, isAuthenticated }) => {
             minLength='6'
             onChange={(e) => onChange(e)}
             required
-            className='sixteen wide column'
           />
-        </Grid.Row>
-        <Grid.Row centered>
+        </Grid.Column>
+        <Grid.Column width={16}>
+          <LoginMessages />
+        </Grid.Column>
+        <Grid.Column width={16} textAlign='center'>
           <Button.Group>
             <Button content='Register' />
             <Button.Or />
             <Button positive type='submit' value='Login' content='Log In' />
           </Button.Group>
-        </Grid.Row>
+        </Grid.Column>
       </Grid>
     </Form>
   );
 };
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  loginUser: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { login })(Login);
+export default connect(null, { loginUser })(Login);
