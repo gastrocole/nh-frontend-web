@@ -1,26 +1,24 @@
+//Types:
 import {
-  ADD_LOGIN_ERROR_MESSAGE,
-  REMOVE_LOGIN_ERROR_MESSAGE,
+  ADD_REGISTER_ERROR_MESSAGE,
+  REMOVE_REGISTER_ERROR_MESSAGE,
 } from '../types/reducerTypes';
 
-const initialState = {
-  errors: [],
-};
+const initialState = { errors: [] };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case ADD_LOGIN_ERROR_MESSAGE:
+    case ADD_REGISTER_ERROR_MESSAGE:
       return {
         ...state,
         errors: [payload],
       };
-    case REMOVE_LOGIN_ERROR_MESSAGE:
+    case REMOVE_REGISTER_ERROR_MESSAGE:
       return {
         ...state,
         errors: state.errors.filter((error) => error.id !== payload),
       };
-
     default:
       return state;
   }

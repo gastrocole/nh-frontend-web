@@ -1,17 +1,17 @@
-// Standard imports:
+//Standard imports:
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-// Imported components:
+//Imported components:
 import { Message } from 'semantic-ui-react';
 
-const LoginMessages = ({ errorMessages }) => {
+const RegisterMessages = ({ errorMessages }) => {
   return (
     errorMessages !== null &&
     errorMessages.length > 0 && (
       <Message error>
-        <Message.Header>Login Failed</Message.Header>
+        <Message.Header>Registration Failed</Message.Header>
         <Message.List>
           {errorMessages.map((error) => (
             <Message.Item key={error.id}>{error.message}</Message.Item>
@@ -22,12 +22,12 @@ const LoginMessages = ({ errorMessages }) => {
   );
 };
 
-LoginMessages.propTypes = {
+RegisterMessages.propTypes = {
   errorMessages: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
-  errorMessages: state.loginMessages.errors,
+  errorMessages: state.registerMessages.errors,
 });
 
-export default connect(mapStateToProps)(LoginMessages);
+export default connect(mapStateToProps)(RegisterMessages);
