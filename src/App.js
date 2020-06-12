@@ -22,6 +22,7 @@ import setAuthToken from './utils/auth';
 
 // Utility functions
 import { loadUser } from './actions/auth';
+import Notification from './components/notifications/Notification';
 
 // Set api auth token from local storage
 if (localStorage.token) {
@@ -37,6 +38,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Navigation>
+          <Notification />
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/membership' component={Membership} />
