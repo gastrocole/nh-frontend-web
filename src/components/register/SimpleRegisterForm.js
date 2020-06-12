@@ -1,13 +1,26 @@
+//Standard imports:
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+//Imported components:
 import { Grid, Form, Button } from 'semantic-ui-react';
 
-import { registerUser } from '../../actions/auth';
+//Custom components:
+import RegisterMessages from '../../components/register/RegisterMessages';
 
-function SimpleRegisterForm({ registerUser }) {
-  const initialState = { name: '', email: '', password: '', type: 'MEMBER' };
+//Actions:
+import { registerUser } from '../../actions/auth';
+import { addRegisterErrorMessage } from '../../actions/registerMessages';
+
+function SimpleRegisterForm({ registerUser, addRegisterErrorMessage }) {
+  const initialState = {
+    name: '',
+    email: '',
+    password: '',
+    type: 'MEMBER',
+    terms: false,
+  };
   const [formData, setFormData] = useState(initialState);
 
   const handleChange = (e) => {
@@ -18,13 +31,20 @@ function SimpleRegisterForm({ registerUser }) {
     setFormData({ ...formData, type: value });
   };
 
+  const handleToggle = (e) => {
+    setFormData({ ...formData, terms: !formData.terms });
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
-    registerUser(formData);
+    if (formData.terms === true) {
+      registerUser(formData);
+    } else {
+      addRegisterErrorMessage('Please accept the terms and conditions');
+    }
   };
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form error onSubmit={onSubmit}>
       <Grid stackable stretched>
         <Grid.Column width={16}>
           <Form.Input
@@ -108,7 +128,15 @@ function SimpleRegisterForm({ registerUser }) {
           </Form.Group>
         </Grid.Column>
         <Grid.Column width={16}>
-          <Form.Checkbox label='I agree to the Terms and Conditions' />
+          <Form.Checkbox
+            label='I agree to the Terms and Conditions'
+            onChange={handleToggle}
+            name='terms'
+            checked={formData.terms}
+          />
+        </Grid.Column>
+        <Grid.Column width={16}>
+          <RegisterMessages />
         </Grid.Column>
         <Grid.Column width={16}>
           <Button
@@ -126,6 +154,9 @@ function SimpleRegisterForm({ registerUser }) {
 
 SimpleRegisterForm.propTypes = {
   registerUser: PropTypes.func.isRequired,
+  addRegisterErrorMessage: PropTypes.func.isRequired,
 };
 
-export default connect(null, { registerUser })(SimpleRegisterForm);
+export default connect(null, { registerUser, addRegisterErrorMessage })(
+  SimpleRegisterForm
+);

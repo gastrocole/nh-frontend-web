@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // Actions:
 import { addLoginErrorMessage } from './loginMessages';
+import { addRegisterErrorMessage } from './registerMessages';
 
 // Utility functions:
 import setAuthToken from '../utils/auth';
@@ -45,9 +46,7 @@ export const registerUser = (registerObject) => async (dispatch) => {
       'Content-Type': 'application/json',
     },
   };
-
   const body = JSON.stringify(registerObject);
-
   try {
     const res = await axios.post('/users', body, config);
     localStorage.setItem('token', res.data.token);
@@ -55,10 +54,17 @@ export const registerUser = (registerObject) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
+
     dispatch(loadUser());
-  } catch (err) {
-    console.log('error');
-    // TO DO: set alert
+  } catch (error) {
+    if (error.response.data.errors) {
+      const errors = error.response.data.errors;
+      errors.forEach((error) => dispatch(addRegisterErrorMessage(error.msg)));
+    } else if (error.response.data) {
+      console.log(error.response.data);
+    } else {
+      console.log(error);
+    }
     // TO DO: catch for both axios and non-axios errors
     localStorage.removeItem('token');
     dispatch({
@@ -90,9 +96,9 @@ export const loginUser = ({ email, password }) => async (dispatch) => {
       const errors = error.response.data.errors;
       errors.forEach((error) => dispatch(addLoginErrorMessage(error.msg)));
     } else if (error.response.data) {
-      console.log(error.response.data)
+      console.log(error.response.data);
     } else {
-      console.log(error)
+      console.log(error);
     }
     localStorage.removeItem('token');
     dispatch({
