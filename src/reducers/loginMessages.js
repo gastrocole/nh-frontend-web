@@ -13,15 +13,15 @@ export default function (state = initialState, action) {
     case ADD_LOGIN_ERROR_MESSAGE:
       return {
         ...state,
-        errors: [payload, ...state.errors],
+        errors: [payload],
       };
     case REMOVE_LOGIN_ERROR_MESSAGE:
-        return {
-            ...state,
-            errors: state.errors.filter((error) => error.id !== payload)
-        }
-    
+      return {
+        ...state,
+        errors: state.errors.filter((error) => error.id !== payload),
+      };
+
     default:
       return state;
-    }
+  }
 }

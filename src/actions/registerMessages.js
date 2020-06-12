@@ -1,7 +1,7 @@
-//Custom imports by library:
+// Custom imports by library:
 import { v4 } from 'uuid';
 
-//Types:
+// Types:
 import {
   ADD_REGISTER_ERROR_MESSAGE,
   REMOVE_REGISTER_ERROR_MESSAGE,
