@@ -1,15 +1,15 @@
-//Standard imports:
+// Standard imports:
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-//Imported components:
+// Imported components:
 import { Grid, Form, Button } from 'semantic-ui-react';
 
-//Custom components:
+// Custom components:
 import RegisterMessages from '../../components/register/RegisterMessages';
 
-//Actions:
+// Actions:
 import { registerUser } from '../../actions/auth';
 import { addRegisterErrorMessage } from '../../actions/registerMessages';
 
@@ -18,6 +18,7 @@ function SimpleRegisterForm({ registerUser, addRegisterErrorMessage }) {
     name: '',
     email: '',
     password: '',
+    password2: '',
     type: 'MEMBER',
     terms: false,
   };
@@ -36,10 +37,14 @@ function SimpleRegisterForm({ registerUser, addRegisterErrorMessage }) {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (formData.terms === true) {
+    if (formData.terms === true && formData.password === formData.password2) {
       registerUser(formData);
     } else {
-      addRegisterErrorMessage('Please accept the terms and conditions');
+      if (formData.terms === false) {
+        addRegisterErrorMessage('Please accept the terms and conditions');
+      } else if (formData.password !== formData.password2) {
+        addRegisterErrorMessage('Please ensure both passwords match');
+      }
     }
   };
 
@@ -92,6 +97,8 @@ function SimpleRegisterForm({ registerUser, addRegisterErrorMessage }) {
             type='password'
             placeholder='Retype Password'
             name='password2'
+            value={formData.password2}
+            onChange={handleChange}
             minLength='8'
             required
           />
